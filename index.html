@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Test 1 Section Only</title>
+  <title>Test 1 — Isolated TAVR on White</title>
 
   <style>
-    /* ===== Minimal base (matches original look) ===== */
+    /* ===== Minimal base ===== */
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
@@ -19,27 +19,9 @@
       margin: 0 auto;
       padding: 40px 20px;
     }
-    h2 {
-      font-size: 2em;
-      line-height: 1.3;
-      margin: 1.5em 0 0.8em;
-      color: #1a1a1a;
-      border-bottom: 2px solid #e0e0e0;
-      padding-bottom: 0.3em;
-    }
-    h3 {
-      font-size: 1.5em;
-      margin: 1.3em 0 0.6em;
-      color: #2a2a2a;
-    }
-    p { margin-bottom: 1.2em; }
-    ul, ol { margin: 1em 0 1.5em 2em; }
-    li { margin-bottom: 0.5em; }
-    strong { font-weight: 600; color: #1a1a1a; }
 
-    /* ===== Prompt Collapsible (from original) ===== */
+    /* ===== Prompt Collapsible ===== */
     .prompt-container {
-      margin: 2em 0;
       border: 1px solid #ddd;
       border-radius: 8px;
       overflow: hidden;
@@ -55,7 +37,7 @@
       transition: background 0.2s;
     }
     .prompt-header:hover { background: #eef1f4; }
-    .prompt-header strong { font-size: 1.05em; }
+    .prompt-header strong { font-size: 1.05em; font-weight: 600; color: #1a1a1a; }
     .prompt-toggle {
       font-size: 1.2em;
       color: #666;
@@ -80,12 +62,12 @@
       margin: 0;
     }
 
-    /* ===== Image Gallery (from original) ===== */
+    /* ===== Image Gallery ===== */
     .image-gallery {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
       gap: 15px;
-      margin: 2em 0;
+      margin-top: 18px;
     }
     .gallery-item {
       position: relative;
@@ -117,76 +99,7 @@
       font-weight: 600;
     }
 
-    /* ===== Score Table (from original) ===== */
-    .score-table-container {
-      margin: 2em 0;
-      overflow-x: auto;
-    }
-    .score-table {
-      width: 100%;
-      border-collapse: collapse;
-      background: #fff;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-      border-radius: 8px;
-      overflow: hidden;
-    }
-    .score-table th {
-      background: #2c3e50;
-      color: #fff;
-      padding: 12px 10px;
-      text-align: left;
-      font-weight: 600;
-      font-size: 0.9em;
-    }
-    .score-table td {
-      padding: 12px 10px;
-      border-bottom: 1px solid #e0e0e0;
-      font-size: 0.95em;
-    }
-    .score-table tr:last-child td { border-bottom: none; }
-    .score-table tr:nth-child(even) { background: #f9f9f9; }
-    .score-table tr:hover { background: #f5f5f5; }
-    .score-table td:first-child { font-weight: 600; color: #1a1a1a; }
-    .score-table td:last-child { font-weight: 700; color: #2c3e50; font-size: 1.1em; }
-    .ghost-row { background: #ecfdf5 !important; }
-    .ghost-row:hover { background: #d1fae5 !important; }
-
-    /* ===== Model Notes + Callout Boxes (from original) ===== */
-    .model-note {
-      background: #f8fafc;
-      border: 1px solid #e2e8f0;
-      border-radius: 8px;
-      padding: 20px;
-      margin: 1.5em 0;
-    }
-    .model-note h4 {
-      margin-top: 0;
-      margin-bottom: 0.5em;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-size: 1.2em;
-      color: #333;
-    }
-    .model-note .score-badge {
-      background: #e2e8f0;
-      padding: 4px 10px;
-      border-radius: 4px;
-      font-size: 0.85em;
-      font-weight: 600;
-    }
-    .warning-box {
-      background: #fff3cd;
-      border-left: 4px solid #ffc107;
-      padding: 20px;
-      margin: 2em 0;
-      border-radius: 0 4px 4px 0;
-    }
-
-    /* =======================================================================
-       ===== Lightbox (Option A fix): NO black full-screen slab in Webflow =====
-       ======================================================================= */
-
+    /* ===== Lightbox ===== */
     .lightbox {
       display: none;
       position: fixed;
@@ -259,11 +172,7 @@
     }
 
     @media (max-width: 768px) {
-      h2 { font-size: 1.6em; }
-      h3 { font-size: 1.3em; }
-      .score-table th, .score-table td { padding: 8px 6px; }
       .image-gallery { grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; }
-
       .lightbox-content { padding: 12px; }
       .lightbox-content img { max-height: 72vh; }
     }
@@ -272,14 +181,6 @@
 
 <body>
   <div class="blog-container">
-
-    <!-- ==================== TEST 1 ONLY ==================== -->
-
-    <!-- Removed:
-         <h2>Test 1: Isolated Transcatheter Valve on White (The "Product Shot" Test)</h2>
-         <h3>What We're Looking For</h3> + the <ul> bullets
-    -->
-
     <div class="prompt-container" onclick="togglePrompt(this)">
       <div class="prompt-header">
         <strong>Show Prompt: Test 1, Isolated TAVR on White</strong>
@@ -330,102 +231,9 @@ Include thin dark gray commissure posts and small wire details at the top edge. 
         <div class="gallery-label">Grok (8/25)</div>
       </div>
     </div>
-
-    <div class="score-table-container">
-      <table class="score-table">
-        <thead>
-          <tr>
-            <th>Generator</th>
-            <th>Prompt</th>
-            <th>Labels</th>
-            <th>Medical</th>
-            <th>Concept</th>
-            <th>Polish</th>
-            <th>Total</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr class="ghost-row">
-            <td>Ghost (Human Baseline)</td>
-            <td>5</td><td>5</td><td>5</td><td>5</td><td>5</td>
-            <td><strong>25</strong></td>
-          </tr>
-          <tr>
-            <td>AIMAGE (Ghost fine-tune)</td>
-            <td>4</td><td>5</td><td>4</td><td>5</td><td>4</td>
-            <td><strong>22</strong></td>
-          </tr>
-          <tr>
-            <td>Sora</td>
-            <td>4</td><td>5</td><td>4</td><td>4</td><td>4</td>
-            <td><strong>21</strong></td>
-          </tr>
-          <tr>
-            <td>Flux 2</td>
-            <td>3</td><td>5</td><td>1</td><td>2</td><td>4</td>
-            <td><strong>15</strong></td>
-          </tr>
-          <tr>
-            <td>Midjourney</td>
-            <td>2</td><td>5</td><td>1</td><td>1</td><td>1</td>
-            <td><strong>10</strong></td>
-          </tr>
-          <tr>
-            <td>Nano Banana</td>
-            <td>2</td><td>2</td><td>2</td><td>2</td><td>1</td>
-            <td><strong>9</strong></td>
-          </tr>
-          <tr>
-            <td>Grok</td>
-            <td>2</td><td>5</td><td>0</td><td>0</td><td>1</td>
-            <td><strong>8</strong></td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
-    <h3>Model-by-Model Notes</h3>
-
-    <div class="model-note">
-      <h4>Ghost (Human Baseline) <span class="score-badge">25/25</span></h4>
-      <p>This is the only entry that completely matches all the details of the prompt. It perfectly matches the HLT device because it's based on the same CAD model used to manufacture the device. The valve proportions, leaflet shape, and overall construction look coherent and "designed," not improvised. This is what "production-correct" looks like.</p>
-    </div>
-
-    <div class="model-note">
-      <h4>AIMAGE <span class="score-badge">22/25</span></h4>
-      <p>Closest to a "trained junior Ghost artist." Still drifts in subtle engineering details, but it stays in the correct object category and usually maintains plausible proportions. This is likely because it was the only AI that has actually been trained on the exact same and similar transcatheter aortic valve prosthesis that Ghost used to render their image.</p>
-    </div>
-
-    <div class="model-note">
-      <h4>Sora <span class="score-badge">21/25</span></h4>
-      <p>Strong renderer and decent coherence, but can still average details into "generic medical device." Often needs tighter constraints to stop it from inventing convenience geometry. Likely, Sora was trained on similar devices, perhaps even Ghost's own images.</p>
-    </div>
-
-    <div class="model-note">
-      <h4>Flux 2 <span class="score-badge">15/25</span></h4>
-      <p><strong>Main failure:</strong> Overall device shape and proportions are off enough to break physical plausibility. If the implant's profile would not seat correctly at the annulus or is dimensionally nonsensical, it gets a 1 in Medical and Device Accuracy, even if it looks pretty. This is the classic "photoreal but wrong object" trap.</p>
-    </div>
-
-    <div class="model-note">
-      <h4>Midjourney <span class="score-badge">10/25</span></h4>
-      <p>Still behaves like "stylized product concept," not "specific implant." It can be visually pleasing while being structurally useless.</p>
-    </div>
-
-    <div class="model-note">
-      <h4>Grok <span class="score-badge">8/25</span></h4>
-      <p>Rendered a fan instead of a valve. Immediate disqualification on correctness. This is what happens when an AI confidently generates the wrong object entirely.</p>
-    </div>
-
-    <div class="warning-box">
-      <strong>The takeaway:</strong>
-      "Flux can render something that looks like a high-end medical device photo, but when you compare it to a real TAVR prosthesis, the proportions are so wrong it wouldn't even fit in the aorta, which defeats the entire purpose of medical illustration."
-    </div>
-
-    <!-- ==================== /TEST 1 ONLY ==================== -->
-
   </div>
 
-  <!-- Lightbox (required for click-to-expand) -->
+  <!-- Lightbox -->
   <div id="lightbox" class="lightbox" onclick="closeLightbox()">
     <span class="lightbox-close" onclick="closeLightbox()">&times;</span>
     <div class="lightbox-content" onclick="event.stopPropagation()">
@@ -475,7 +283,7 @@ Include thin dark gray commissure posts and small wire details at the top edge. 
     });
   </script>
 
+  <!-- Keep if you’re embedding this page in an iframe (as in the original) -->
   <script src="https://cdn.jsdelivr.net/npm/iframe-resizer@4.3.9/js/iframeResizer.contentWindow.min.js"></script>
-
 </body>
 </html>
