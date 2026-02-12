@@ -3,90 +3,458 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Previous Posts Box Only</title>
+  <title>Test 1 Section Only</title>
 
   <style>
-    * { box-sizing: border-box; }
+    /* ===== Minimal base (matches original look) ===== */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
-      margin: 0;
-      padding: 32px 16px;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
-      background: #ffffff;
-      color: #111827;
-    }
-
-    .series-box {
-      max-width: 920px;
-      margin: 0 auto;
-      background: #f3f4f6;
-      border-radius: 10px;
-      padding: 22px 22px;
-    }
-
-    .series-box h3 {
-      margin: 0 0 14px 0;
-      font-size: 20px;
-      font-weight: 700;
-      color: #111827;
-    }
-
-    .series-box ul {
-      margin: 0;
-      padding-left: 22px; /* keeps bullets aligned like your screenshot */
-    }
-
-    .series-box li {
-      margin: 12px 0;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
       line-height: 1.7;
-      color: #111827;
-      font-size: 16px;
+      color: #333;
+      background: #fff;
+    }
+    .blog-container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 40px 20px;
+    }
+    h2 {
+      font-size: 2em;
+      line-height: 1.3;
+      margin: 1.5em 0 0.8em;
+      color: #1a1a1a;
+      border-bottom: 2px solid #e0e0e0;
+      padding-bottom: 0.3em;
+    }
+    h3 {
+      font-size: 1.5em;
+      margin: 1.3em 0 0.6em;
+      color: #2a2a2a;
+    }
+    p { margin-bottom: 1.2em; }
+    ul, ol { margin: 1em 0 1.5em 2em; }
+    li { margin-bottom: 0.5em; }
+    strong { font-weight: 600; color: #1a1a1a; }
+
+    /* ===== Prompt Collapsible (from original) ===== */
+    .prompt-container {
+      margin: 2em 0;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    .prompt-header {
+      background: #f6f8fa;
+      padding: 15px 20px;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      user-select: none;
+      transition: background 0.2s;
+    }
+    .prompt-header:hover { background: #eef1f4; }
+    .prompt-header strong { font-size: 1.05em; }
+    .prompt-toggle {
+      font-size: 1.2em;
+      color: #666;
+      transition: transform 0.3s;
+    }
+    .prompt-container.active .prompt-toggle { transform: rotate(180deg); }
+    .prompt-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease;
+    }
+    .prompt-container.active .prompt-content { max-height: 2000px; }
+    .prompt-content pre {
+      background: #1e293b;
+      padding: 20px;
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 0.9em;
+      line-height: 1.5;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+      color: #e2e8f0;
+      margin: 0;
     }
 
-    .series-box a {
-      color: #2563eb;
-      text-decoration: none;
+    /* ===== Image Gallery (from original) ===== */
+    .image-gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 15px;
+      margin: 2em 0;
+    }
+    .gallery-item {
+      position: relative;
+      cursor: pointer;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .gallery-item:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+    .gallery-item img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      display: block;
+    }
+    .gallery-label {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+      color: #fff;
+      padding: 30px 10px 10px;
+      font-size: 0.85em;
+      font-weight: 600;
     }
 
-    .series-box a:hover {
-      text-decoration: underline;
+    /* ===== Score Table (from original) ===== */
+    .score-table-container {
+      margin: 2em 0;
+      overflow-x: auto;
+    }
+    .score-table {
+      width: 100%;
+      border-collapse: collapse;
+      background: #fff;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    .score-table th {
+      background: #2c3e50;
+      color: #fff;
+      padding: 12px 10px;
+      text-align: left;
+      font-weight: 600;
+      font-size: 0.9em;
+    }
+    .score-table td {
+      padding: 12px 10px;
+      border-bottom: 1px solid #e0e0e0;
+      font-size: 0.95em;
+    }
+    .score-table tr:last-child td { border-bottom: none; }
+    .score-table tr:nth-child(even) { background: #f9f9f9; }
+    .score-table tr:hover { background: #f5f5f5; }
+    .score-table td:first-child { font-weight: 600; color: #1a1a1a; }
+    .score-table td:last-child { font-weight: 700; color: #2c3e50; font-size: 1.1em; }
+    .ghost-row { background: #ecfdf5 !important; }
+    .ghost-row:hover { background: #d1fae5 !important; }
+
+    /* ===== Model Notes + Callout Boxes (from original) ===== */
+    .model-note {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 20px;
+      margin: 1.5em 0;
+    }
+    .model-note h4 {
+      margin-top: 0;
+      margin-bottom: 0.5em;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 1.2em;
+      color: #333;
+    }
+    .model-note .score-badge {
+      background: #e2e8f0;
+      padding: 4px 10px;
+      border-radius: 4px;
+      font-size: 0.85em;
+      font-weight: 600;
+    }
+    .warning-box {
+      background: #fff3cd;
+      border-left: 4px solid #ffc107;
+      padding: 20px;
+      margin: 2em 0;
+      border-radius: 0 4px 4px 0;
+    }
+
+    /* ===== Lightbox (from original) ===== */
+    .lightbox {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.95);
+      z-index: 9999;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+    .lightbox.active { display: flex; }
+    .lightbox-content {
+      max-width: 90%;
+      max-height: 90%;
+      position: relative;
+    }
+    .lightbox-content img {
+      max-width: 100%;
+      max-height: 90vh;
+      object-fit: contain;
+      border-radius: 4px;
+    }
+    .lightbox-close {
+      position: absolute;
+      top: 20px;
+      right: 30px;
+      font-size: 40px;
+      color: #fff;
+      cursor: pointer;
+      z-index: 10000;
+      width: 50px;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0,0,0,0.5);
+      border-radius: 50%;
+      transition: background 0.2s;
+    }
+    .lightbox-close:hover { background: rgba(0,0,0,0.8); }
+    .lightbox-caption {
+      color: #fff;
+      text-align: center;
+      margin-top: 15px;
+      font-size: 1.1em;
+    }
+
+    /* Responsive (from original) */
+    @media (max-width: 768px) {
+      h2 { font-size: 1.6em; }
+      h3 { font-size: 1.3em; }
+      .score-table th, .score-table td { padding: 8px 6px; }
+      .image-gallery { grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; }
     }
   </style>
 </head>
 
 <body>
-  <section class="series-box" aria-label="Previous posts in this series">
-    <h3>Previous Posts in This Series</h3>
+  <div class="blog-container">
 
+    <!-- ==================== TEST 1 ONLY ==================== -->
+
+    <h2>Test 1: Isolated Transcatheter Valve on White (The "Product Shot" Test)</h2>
+
+    <h3>What We're Looking For</h3>
     <ul>
-      <li>
-        <a href="https://www.ghostproductions.com/news/how-to-use-ai-to-make-stunning-medical-illustrations"
-           target="_blank" rel="noopener">
-          How to Use AI to Make Stunning Medical Illustrations
-        </a>
-        - Practical guide to tools like Midjourney, Stable Diffusion, and DALL-E 2
-      </li>
-
-      <li>
-        <a href="https://www.ghostproductions.com/news/is-midjourney-ai-smart-enough-to-make-medical-art"
-           target="_blank" rel="noopener">
-          Is Midjourney AI Smart Enough to Make Medical Art?
-        </a>
-        - Exhaustive testing with failures on anatomy, banned terms, and more
-      </li>
-
-      <li>
-        <a href="https://www.ghostproductions.com/news/ai-image-generator-prompt-references-for-medical-art"
-           target="_blank" rel="noopener">
-          AI Image Generator Prompt References for Medical Art
-        </a>
-        - Handy resource for crafting better prompts
-      </li>
+      <li>Correct "TAVR-like" construction cues: metal lattice stent, fabric skirt, three symmetric leaflets, plausible commissure posts and top-edge wire detail</li>
+      <li>High quality product-render lighting: controlled reflections, realistic materials, crisp edges</li>
+      <li>Strict prompt adherence: isolated on pure white, centered, no labels, no extra objects</li>
     </ul>
-  </section>
+
+    <div class="prompt-container" onclick="togglePrompt(this)">
+      <div class="prompt-header">
+        <strong>Show Prompt: Test 1, Isolated TAVR on White</strong>
+        <span class="prompt-toggle">&#9660;</span>
+      </div>
+      <div class="prompt-content">
+        <pre>High resolution, photorealistic 3D medical product render of a balloon expandable transcatheter aortic valve prosthesis, isolated on a pure white seamless background with a very soft gray ground shadow. Centered, three quarter front view, slightly above eye level.
+
+The device is a short cylindrical stent frame made of thin metallic struts in a diamond lattice pattern, brushed silver with clean specular highlights. At the base is a thick off white fabric sealing skirt that wraps the circumference, with a subtle woven texture and a scalloped lower edge. Inside the stent are three pale cream bioprosthetic leaflets, slightly translucent, with realistic thickness and soft folds, arranged symmetrically and open in a relaxed neutral position.
+
+Include thin dark gray commissure posts and small wire details at the top edge. Clean studio lighting, crisp focus, no text, no watermark, no logo, no hands, no anatomy.</pre>
+      </div>
+    </div>
+
+    <div class="image-gallery">
+      <div class="gallery-item" onclick="openLightbox('test1-ghost')">
+        <img src="images/test1-ghost.webp" alt="Ghost TAVR">
+        <div class="gallery-label">Ghost Human (25/25)</div>
+      </div>
+
+      <div class="gallery-item" onclick="openLightbox('test1-aimage')">
+        <img src="images/test1-aimage.webp" alt="AIMAGE TAVR">
+        <div class="gallery-label">AIMAGE (22/25)</div>
+      </div>
+
+      <div class="gallery-item" onclick="openLightbox('test1-sora')">
+        <img src="images/test1-sora.webp" alt="Sora TAVR">
+        <div class="gallery-label">Sora (21/25)</div>
+      </div>
+
+      <div class="gallery-item" onclick="openLightbox('test1-flux')">
+        <img src="images/test1-flux2.webp" alt="Flux 2 TAVR">
+        <div class="gallery-label">Flux 2 (15/25)</div>
+      </div>
+
+      <div class="gallery-item" onclick="openLightbox('test1-midjourney')">
+        <img src="images/test1-midjourney.webp" alt="Midjourney TAVR">
+        <div class="gallery-label">Midjourney (10/25)</div>
+      </div>
+
+      <div class="gallery-item" onclick="openLightbox('test1-nano')">
+        <img src="images/test1-nanobanana.webp" alt="Nano Banana TAVR">
+        <div class="gallery-label">Nano Banana (9/25)</div>
+      </div>
+
+      <div class="gallery-item" onclick="openLightbox('test1-grok')">
+        <img src="images/test1-grok.webp" alt="Grok TAVR">
+        <div class="gallery-label">Grok (8/25)</div>
+      </div>
+    </div>
+
+    <div class="score-table-container">
+      <table class="score-table">
+        <thead>
+          <tr>
+            <th>Generator</th>
+            <th>Prompt</th>
+            <th>Labels</th>
+            <th>Medical</th>
+            <th>Concept</th>
+            <th>Polish</th>
+            <th>Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="ghost-row">
+            <td>Ghost (Human Baseline)</td>
+            <td>5</td><td>5</td><td>5</td><td>5</td><td>5</td>
+            <td><strong>25</strong></td>
+          </tr>
+          <tr>
+            <td>AIMAGE (Ghost fine-tune)</td>
+            <td>4</td><td>5</td><td>4</td><td>5</td><td>4</td>
+            <td><strong>22</strong></td>
+          </tr>
+          <tr>
+            <td>Sora</td>
+            <td>4</td><td>5</td><td>4</td><td>4</td><td>4</td>
+            <td><strong>21</strong></td>
+          </tr>
+          <tr>
+            <td>Flux 2</td>
+            <td>3</td><td>5</td><td>1</td><td>2</td><td>4</td>
+            <td><strong>15</strong></td>
+          </tr>
+          <tr>
+            <td>Midjourney</td>
+            <td>2</td><td>5</td><td>1</td><td>1</td><td>1</td>
+            <td><strong>10</strong></td>
+          </tr>
+          <tr>
+            <td>Nano Banana</td>
+            <td>2</td><td>2</td><td>2</td><td>2</td><td>1</td>
+            <td><strong>9</strong></td>
+          </tr>
+          <tr>
+            <td>Grok</td>
+            <td>2</td><td>5</td><td>0</td><td>0</td><td>1</td>
+            <td><strong>8</strong></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Model-by-Model Notes</h3>
+
+    <div class="model-note">
+      <h4>Ghost (Human Baseline) <span class="score-badge">25/25</span></h4>
+      <p>This is the only entry that completely matches all the details of the prompt. It perfectly matches the HLT device because it's based on the same CAD model used to manufacture the device. The valve proportions, leaflet shape, and overall construction look coherent and "designed," not improvised. This is what "production-correct" looks like.</p>
+    </div>
+
+    <div class="model-note">
+      <h4>AIMAGE <span class="score-badge">22/25</span></h4>
+      <p>Closest to a "trained junior Ghost artist." Still drifts in subtle engineering details, but it stays in the correct object category and usually maintains plausible proportions. This is likely because it was the only AI that has actually been trained on the exact same and similar transcatheter aortic valve prosthesis that Ghost used to render their image.</p>
+    </div>
+
+    <div class="model-note">
+      <h4>Sora <span class="score-badge">21/25</span></h4>
+      <p>Strong renderer and decent coherence, but can still average details into "generic medical device." Often needs tighter constraints to stop it from inventing convenience geometry. Likely, Sora was trained on similar devices, perhaps even Ghost's own images.</p>
+    </div>
+
+    <div class="model-note">
+      <h4>Flux 2 <span class="score-badge">15/25</span></h4>
+      <p><strong>Main failure:</strong> Overall device shape and proportions are off enough to break physical plausibility. If the implant's profile would not seat correctly at the annulus or is dimensionally nonsensical, it gets a 1 in Medical and Device Accuracy, even if it looks pretty. This is the classic "photoreal but wrong object" trap.</p>
+    </div>
+
+    <div class="model-note">
+      <h4>Midjourney <span class="score-badge">10/25</span></h4>
+      <p>Still behaves like "stylized product concept," not "specific implant." It can be visually pleasing while being structurally useless.</p>
+    </div>
+
+    <div class="model-note">
+      <h4>Grok <span class="score-badge">8/25</span></h4>
+      <p>Rendered a fan instead of a valve. Immediate disqualification on correctness. This is what happens when an AI confidently generates the wrong object entirely.</p>
+    </div>
+
+    <div class="warning-box">
+      <strong>The takeaway:</strong>
+      "Flux can render something that looks like a high-end medical device photo, but when you compare it to a real TAVR prosthesis, the proportions are so wrong it wouldn't even fit in the aorta, which defeats the entire purpose of medical illustration."
+    </div>
+
+    <!-- ==================== /TEST 1 ONLY ==================== -->
+
+  </div>
+
+  <!-- Lightbox (required for click-to-expand) -->
+  <div id="lightbox" class="lightbox" onclick="closeLightbox()">
+    <span class="lightbox-close" onclick="closeLightbox()">&times;</span>
+    <div class="lightbox-content" onclick="event.stopPropagation()">
+      <img id="lightbox-img" src="" alt="Expanded view">
+      <div id="lightbox-caption" class="lightbox-caption"></div>
+    </div>
+  </div>
+
+  <script>
+    // Toggle prompt visibility (same behavior as original)
+    function togglePrompt(element) {
+      element.classList.toggle('active');
+    }
+
+    // Lightbox data (Test 1 only)
+    const lightboxData = {
+      'test1-ghost':      { src: 'images/test1-ghost.webp',      caption: 'Ghost Human Baseline TAVR (25/25)' },
+      'test1-aimage':     { src: 'images/test1-aimage.webp',     caption: 'AIMAGE TAVR (22/25)' },
+      'test1-sora':       { src: 'images/test1-sora.webp',       caption: 'Sora TAVR (21/25)' },
+      'test1-flux':       { src: 'images/test1-flux2.webp',      caption: 'Flux 2 TAVR (15/25)' },
+      'test1-midjourney': { src: 'images/test1-midjourney.webp', caption: 'Midjourney TAVR (10/25)' },
+      'test1-nano':       { src: 'images/test1-nanobanana.webp', caption: 'Nano Banana TAVR (9/25)' },
+      'test1-grok':       { src: 'images/test1-grok.webp',       caption: 'Grok TAVR (8/25)' }
+    };
+
+    function openLightbox(imageId) {
+      const lightbox = document.getElementById('lightbox');
+      const img = document.getElementById('lightbox-img');
+      const caption = document.getElementById('lightbox-caption');
+
+      const data = lightboxData[imageId];
+      if (data) {
+        img.src = data.src;
+        caption.textContent = data.caption;
+      }
+
+      lightbox.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeLightbox() {
+      const lightbox = document.getElementById('lightbox');
+      lightbox.classList.remove('active');
+      document.body.style.overflow = 'auto';
+    }
+
+    // Close lightbox with Escape key (same as original)
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') closeLightbox();
+    });
+  </script>
 
   <script src="https://cdn.jsdelivr.net/npm/iframe-resizer@4.3.9/js/iframeResizer.contentWindow.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/iframe-resizer@4.3.9/js/iframeResizer.contentWindow.min.js"></script>
+
 </body>
 </html>
-
-
