@@ -187,14 +187,12 @@
        ===== Lightbox (Option A fix): NO black full-screen slab in Webflow =====
        ======================================================================= */
 
-    /* Light overlay is now light/transparent instead of black */
     .lightbox {
       display: none;
       position: fixed;
       inset: 0;
       width: 100%;
       height: 100%;
-      /* Use a light overlay so it doesn't look like a black "frame" in an iframe */
       background: rgba(255, 255, 255, 0.70);
       -webkit-backdrop-filter: blur(6px);
       backdrop-filter: blur(6px);
@@ -205,7 +203,6 @@
     }
     .lightbox.active { display: flex; }
 
-    /* Card-like modal */
     .lightbox-content {
       position: relative;
       background: #fff;
@@ -222,14 +219,13 @@
     .lightbox-content img {
       width: auto;
       max-width: 100%;
-      max-height: 78vh; /* keeps room for caption */
+      max-height: 78vh;
       object-fit: contain;
       border-radius: 8px;
       display: block;
       background: #fff;
     }
 
-    /* Close button styled for light background */
     .lightbox-close {
       position: absolute;
       top: 10px;
@@ -262,7 +258,6 @@
       font-size: 1.0em;
     }
 
-    /* Responsive (from original) */
     @media (max-width: 768px) {
       h2 { font-size: 1.6em; }
       h3 { font-size: 1.3em; }
@@ -280,14 +275,10 @@
 
     <!-- ==================== TEST 1 ONLY ==================== -->
 
-    <h2>Test 1: Isolated Transcatheter Valve on White (The "Product Shot" Test)</h2>
-
-    <h3>What We're Looking For</h3>
-    <ul>
-      <li>Correct "TAVR-like" construction cues: metal lattice stent, fabric skirt, three symmetric leaflets, plausible commissure posts and top-edge wire detail</li>
-      <li>High quality product-render lighting: controlled reflections, realistic materials, crisp edges</li>
-      <li>Strict prompt adherence: isolated on pure white, centered, no labels, no extra objects</li>
-    </ul>
+    <!-- Removed:
+         <h2>Test 1: Isolated Transcatheter Valve on White (The "Product Shot" Test)</h2>
+         <h3>What We're Looking For</h3> + the <ul> bullets
+    -->
 
     <div class="prompt-container" onclick="togglePrompt(this)">
       <div class="prompt-header">
@@ -444,12 +435,10 @@ Include thin dark gray commissure posts and small wire details at the top edge. 
   </div>
 
   <script>
-    // Toggle prompt visibility (same behavior as original)
     function togglePrompt(element) {
       element.classList.toggle('active');
     }
 
-    // Lightbox data (Test 1 only)
     const lightboxData = {
       'test1-ghost':      { src: 'images/test1-ghost.webp',      caption: 'Ghost Human Baseline TAVR (25/25)' },
       'test1-aimage':     { src: 'images/test1-aimage.webp',     caption: 'AIMAGE TAVR (22/25)' },
@@ -481,7 +470,6 @@ Include thin dark gray commissure posts and small wire details at the top edge. 
       document.body.style.overflow = 'auto';
     }
 
-    // Close lightbox with Escape key (same as original)
     document.addEventListener('keydown', function(e) {
       if (e.key === 'Escape') closeLightbox();
     });
